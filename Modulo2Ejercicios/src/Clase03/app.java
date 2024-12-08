@@ -45,10 +45,33 @@ Procesamiento de pagos:
 
 package Clase03;
 
-public class app {
+import java.util.ArrayList;
+import java.util.List;
 
-    public static void main(String[] args) {        
-        System.out.println("Hello, World!");        
-    }           
-    
+public class app {
+    public static void main(String[] args) {
+        // Lista de métodos de pago
+        List<MetodoPago> metodosPago = new ArrayList<>();
+        metodosPago.add(new TarjetaCredito());
+        metodosPago.add(new PayPal());
+        metodosPago.add(new TransferenciaBancaria());
+        metodosPago.add(new BitCoin());
+        metodosPago.add(new TarjetaRegalo());
+
+        // Simulación de pagos
+        double[] montos = {50, 5000, 5, 0.002, 300}; // Montos para cada método
+        for (int i = 0; i < metodosPago.size(); i++) {
+            MetodoPago metodo = metodosPago.get(i);
+            double monto = montos[i];
+
+            System.out.println(metodo.obtenerDetalles());
+            if (metodo.validarMonto(monto)) {
+                metodo.procesarPago(monto);
+            } else {
+                System.out.println("Monto inválido: $" + monto);
+            }
+            System.out.println();
+        }
+    }
 }
+
